@@ -1,0 +1,11 @@
+*.txt
+
+# ignore the settings folder and files for VSCode
+.vscode/*
+*.psproj
+
+# ignore the settings folder and files for Visual Studio
+.vs/*
+
+# VIM backup files
+*~
