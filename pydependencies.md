@@ -20,7 +20,8 @@ math: mathjax
 # **Managing Python Dependencies for Data Science Projects**
 
 Ian Lanham
-Blog: [https://ianlanham.com](https://ianlanham.com)
+<!--- Not ready yet --->
+<!--- Blog: [https://ianlanham.com](https://ianlanham.com) --->
 GitHub: [https://github.com/ilanham](https://github.com/ilanham)
 LinkedIn: [https://www.linkedin.com/in/ian-lanham/](https://www.linkedin.com/in/ian-lanham/)
 
@@ -39,6 +40,12 @@ I got hooked on Python in 2017, and haven't stopped talking about it since.
 - Who uses Python regularly?
 - How many people use Jupyter Notebook/Lab?
 - How many people use Anaconda?
+- What's your editor of choice?
+
+---
+
+# Survey 2
+
 - How many people know about `pip`?
 - How many people create virtual environments for their Python projects?
 
