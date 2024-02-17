@@ -17,7 +17,21 @@ math: mathjax
     }
 </style>
 
-# **Managing Python Dependencies for Data Science Projects**
+---
+
+# Front Matter: Survey
+
+- Who uses Python regularly?
+- How many people use Jupyter Notebook/Lab?
+- How many people use Anaconda?
+- What's your editor of choice?
+- How many people know about `pip`?
+- How many people create virtual environments for their Python projects?
+
+---
+
+# **Dependency Management with Python and Jupyter**
+#### Managing Python Dependencies for Data Science Projects
 
 Ian Lanham
 <!--- Not ready yet --->
@@ -29,25 +43,9 @@ LinkedIn: [https://www.linkedin.com/in/ian-lanham/](https://www.linkedin.com/in/
 
 # About Me
 
-I've been a data professional for 10 years, starting as a DBA on SQL Server and PostgreSQL. In 2023, I earned my Master's Degree in Data Analytics from UCF. It opened my eyes about how data science and its use can impact decision making across different business sectors.  
+I've been a data professional for ~10 years, starting as a DBA on SQL Server and PostgreSQL. In 2023, I earned my Master's Degree in Data Analytics from UCF. It opened my eyes about how data science and its use can impact decision making across different business sectors.  
 
 I got hooked on Python in 2017, and haven't stopped talking about it since.  
-
----
-
-# Survey
-
-- Who uses Python regularly?
-- How many people use Jupyter Notebook/Lab?
-- How many people use Anaconda?
-- What's your editor of choice?
-
----
-
-# Survey 2
-
-- How many people know about `pip`?
-- How many people create virtual environments for their Python projects?
 
 ---
 
