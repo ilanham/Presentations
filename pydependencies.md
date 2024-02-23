@@ -17,15 +17,13 @@ math: mathjax
     }
 </style>
 
----
-
 # Front Matter: Survey
 
 - Who uses Python regularly?
 - How many people use Jupyter Notebook/Lab?
 - How many people use Anaconda?
 - What's your editor of choice?
-- How many people know about `pip`?
+- How many have installed a library with `pip`?
 - How many people create virtual environments for their Python projects?
 
 ---
@@ -35,8 +33,6 @@ math: mathjax
 
 Ian Lanham
 @dataian@fosstodon.org
-<!--- Not ready yet --->
-<!--- Blog: [https://ianlanham.com](https://ianlanham.com) --->
 GitHub: [https://github.com/ilanham](https://github.com/ilanham)
 LinkedIn: [https://www.linkedin.com/in/ian-lanham/](https://www.linkedin.com/in/ian-lanham/)
 
@@ -57,6 +53,14 @@ i.e. scikit-learn, pandas, or pytorch
 - These packages (almost) always have dependencies to install:
   - dbt-core and flask require both `Jinja2` and `click` (at different versions)
 - Currently dagster doesn't run on Python 3.12, but listed in requirements
+
+---
+
+# ...Who cares?
+- In my experience, you'll run into this problem when you want to:
+  1. Develop a Python library to solve a problem at work
+  2. Also use the same environment to build your skills in a Data Science/Machine Learning space
+- Some of these libraries will conflict on the underlying dependencies
 
 ---
 
@@ -99,7 +103,7 @@ requires = [
     - _I do this, it can get annoying_
     - Jupyter gets duplicated in each virtual environment
 
-- To fight against this, we have tools
+- To help with this, we have tools
 
 ---
 
@@ -131,7 +135,7 @@ requires = [
 - When activating a venv, the environment's Python binary is at the top of your environment path
 - Think of it as the first (and maybe only) weapon you need to fight version incompatibility for proejcts
 
-<!--- Demo here for `which python3` before/after venv activation --->
+<!-- Demo here for `which python3` before/after venv activation. Use the Python Extension Manager in VS Code to show this off, along with the command line and environment variable display. -->
 
 ---
 
@@ -158,7 +162,7 @@ requires = [
 
 # Managing Sanity in your Conda Install
 
-- Creates a default virtual environment `base`, activates **_any_** time you open a terminal
+- Creates a default virtual environment *base*, activates **_any_** time you open a terminal
   - To turn it off: `conda config --set auto__activate_base false`
   - _You should do this if you have a Python install with your OS or you installed Python yourself from [python.org](https://python.org)_
 - You can create an environment from a .yml file similar to a requirements.txt file:
@@ -172,15 +176,15 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
 - Helpful for those new to virtual environments
 - VS Code Extension [Python Environment Manager](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python-environment-manager) works similar to Anaconda Navigator
 
-<!--- Demo of VS Code Extension --->
+<!-- Demo of VS Code Extension -->
 
 ---
 
 # Miniconda and Mamba
 
-- Mini-conda: The `conda` program without 3-4 GB of extra binaries
-- `mamba`: `conda` written in C++ 🏎️
-- [conda-forge](https://conda-forge.org): A community-driven alternative to base `conda` and the Anaconda channel
+- Mini-conda: The conda program without 3-4 GB of extra binaries
+- mamba: conda written in C++ 🏎️
+- [conda-forge](https://conda-forge.org): A community-driven alternative to base conda and the Anaconda channel
 
 ---
 
@@ -188,7 +192,7 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
 
 - Anaconda came before `pip` had a lot of the features and libraries it does now
   - 1.0 release was in 2012, comparable latest Python release was 3.2
-- `pip` has matured greatly since the release of `conda`
+- `pip` has matured greatly since the release of conda
 - If you develop Python libraries (not just data science/scientific computing), you may need to use a different package management workflow
 
 ---
@@ -199,46 +203,70 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
   1. Jupyter Notebook (older style, most common)
   2. JupyterLab
 - Depending on how you use Jupyter (native, webhosted, VS Code plugin), you can run into lots of problems managing conflicting dependencies in the same notebook
-- Conda (and conda-forge) handle the version control for us
+- If using, Conda (and conda-forge) handle the version control for us
 
 ---
 
 # Jupyter Cloud Offerings
 - Anaconda.cloud
-  - Looks like local Jupyter (with its plusses/minuses)
 - Google Colab
-  - Probably the easiest to get started with
   - Sign in with a GMail account
-- AWS SageMaker Studio Lab
-- Azure Machine Learning Workspace
+  - Recommended by François Chollet in "Deep Learning with Python"
+- JetBrains Data Lore
+- _AWS SageMaker Studio Lab_
+- _Azure Machine Learning Workspace_
+  - These two have more pre-reqs to get started
 
-<!--- Demo Google Colab --->
+<!-- Demo Google Colab -->
 
 ---
 
 # AWS SageMaker
 
+- Has it's own hosted JupyterLab workspace
+- Also a large directory of Jupyter plugins
+- Once you create a domain (combination of private notebook space, block storage, and compute engine), you can get started
+- re: a _Fast Launch_ instance - probably go get a cup of coffee
+
+---
+
+# Azure ML Workspace
+
+- Most similar to AWS in its initial setup, more explicit about what it requires
+  - It needs AppInsights, Storage Acct, & Key Vault
+- A little more to juggle - Data assets have to be defined with the API version you want to be compatible with
+
+---
+
+# AWS and Azure Niceties
+Pre-stamped code to work with your Cloud Data™ locally:
+![Azure ML Workspace Code](./azure_ml_studio_data_import.png)
+
 ---
 
 # More pip-based Tools
-- Creator of `pipx` has a table with all of these projects and their strengths, weakenesses, and usecases
+- Creator of `pipx`, Chad Smith, has a table with all of these projects and their strengths, weakenesses, and usecases
   - [The Big List of Python Packaging and Distribution Tools](https://chadsmith.dev/python-packaging/)
+- The question to answer here is: "Do I want to develop Python modules to distribute over PyPI (or a private repository)?"
+- If yes, go through that list, find what meets your needs
 
----
-
-# pipenv
+<!-- Likely split this into its own topic later, removing from main slides now -->
+<!-- # pipenv
 
 - pipenv = pip + virtualenv + pyenv
-  - https://youtu.be/jVcN49sHbBQ?si=HDH11U2GLV-LSxwt
+  - [YouTube - Isaac Harris-Holt - Don't use Pip for Big Projects](https://youtu.be/jVcN49sHbBQ?si=HDH11U2GLV-LSxwt) -->
 
 ---
 
 # pip-tools
 
 - Can be installed by `pipx`
-- Comes with `pip-compile`, input requirements by `requirements.in`
-- `pip-compile` creates a full requirements.txt file from a rougher "requirements.in" file
-- Source: https://youtu.be/G8PApVvdkjQ?si=s5bGzrcM8ymzZkFd
+- Comes with pip-compile, input requirements by a rough list of packages
+  - i.e. a text file with just "bs4, requests" without versions or underlying dependencies
+- pip-compile creates a full requirements.txt file from a rougher "requirements.in" file
+  - [YouTube: Pybites - Using pip-tools to manage Python Dependencies](https://youtu.be/G8PApVvdkjQ?si=s5bGzrcM8ymzZkFd)
+
+<!-- Note the video creator here mentions pipdeptree as something he used to use -->
 
 ---
 
@@ -254,7 +282,7 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
 
 - A dependency and environment manager
 - Also a build system
-  - https://youtu.be/jVcN49sHbBQ?si=HDH11U2GLV-LSxwt
+  - [YouTube: Isaac Harris-Holt - Don't use Pip for Big Projects](https://youtu.be/jVcN49sHbBQ?si=HDH11U2GLV-LSxwt)
 - It can also help you publish to PyPI
 
 ---
@@ -265,10 +293,18 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
 - Rye
 - pyenv
 - PDM
-<!--- Shows how many tools are out there to try and solve this problem --->
+
+<!-- Shows how many tools are out there to try and solve this problem -->
+
+---
+
+# Last Mentions
+These belong at the beginning of the slide deck, but I wanted these to be a lasting impression:
+- [pipdeptree](https://pypi.org/project/pipdeptree/)
+- [Visual Studio Marketplace - Python Environment Manager](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python-environment-manager) - again
 
 ---
 
 # Questions?
-
+Slides Repo:
 ![Slide Deck Link](./gh_repo_qr_code.png)
