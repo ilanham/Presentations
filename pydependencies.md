@@ -48,19 +48,18 @@ I got hooked on Python in 2017, and haven't stopped talking about it since.
 
 # What we're talking about
 
-- As we use Python for more projects, you typically install more packages from PyPI:  
-i.e. scikit-learn, pandas, or pytorch
-- These packages (almost) always have dependencies to install:
-  - dbt-core and flask require both `Jinja2` and `click` (at different versions)
-- Currently dagster doesn't run on Python 3.12, but listed in requirements
+- When working in Python, you tend to start using different libraries to solve different problem scopes
+  - I want to use a database ORM/scrape websites/run OCR on images/train a neural network
+  - You can do all of these with Python, sometimes in the same script
 
 ---
 
-# ...Who cares?
-- In my experience, you'll run into this problem when you want to:
-  1. Develop a Python library to solve a problem at work
-  2. Also use the same environment to build your skills in a Data Science/Machine Learning space
-- Some of these libraries will conflict on the underlying dependencies
+# How does that affect Jupyter/Data Science Work?
+
+- Jupyter has a **lot** of dependencies
+- Other packages (almost) always have dependencies to install:
+  - dbt-core and flask require both Jinja2 and click (at different versions)
+- Currently dagster doesn't run on Python 3.12, but listed in requirements
 
 ---
 
@@ -68,17 +67,21 @@ i.e. scikit-learn, pandas, or pytorch
 - Can be *hard* to document, they look a little different each time
 ![Dagster 3.12 Dependency Error](./dep_error_01_small.png)
 
+<!-- Taken when trying to intall Dagster with a Python 3.12 venv -->
+
 ---
 
 # Another Example
 - [Understanding Python Packages pip Dependency Resolver and Version Conflicts (with Solutions)](https://codingshower.com/pip-dependency-resolver-and-version-conflicts/) - codingshower.com
 - The author shows the problem by installing two projects with a conflicting dependency from a `requirements.txt` file
 
+<!-- They use the pipdeptree project to view the common dependencies between beanie and Jinja2, both requiring the click library -->
+
 ---
 
 ##### How are module dependencies referenced in Python?
 
-Since [PEP 621](https://peps.python.org/pep-0621/) they can appear in the `pyproject.tml` file inside the root of the modules' repo
+Since [PEP 621](https://peps.python.org/pep-0621/) they can appear in the [`pyproject.tml`](https://github.com/scikit-learn/scikit-learn/blob/main/pyproject.toml) file inside the root of the modules' repo
 
 ```toml
 # scikit-learn's pyproject.toml file
@@ -90,16 +93,16 @@ requires = [
     "scipy>=1.6.0",
 ]
 ```
-- Prior to PEP 621, dependencies in `setup.py`
+- Prior to PEP 621, dependencies in [`setup.py`](https://github.com/navdeep-G/setup.py/blob/master/setup.py)
 
 ---
 
 # Working around the Problem
 
 - We run into this when trying to install dependencies a few ways:
-  1. Install everything into the default Python environment ⚠️
+  1. Install everything into the default Python environment
   2. For notebooks: install Jupyter standalone and create a virtual environment for everything else
-  3. Create a new virtual environment for _everything_ 😔
+  3. Create a new virtual environment for _everything_
     - _I do this, it can get annoying_
     - Jupyter gets duplicated in each virtual environment
 
@@ -117,7 +120,6 @@ requires = [
 ---
 
 # `venv` - 1
-*Solution 1*
 
 - Part of the Python standard library since 3.3, included after install from Python.org
 - What is a virtual environment?
@@ -129,11 +131,10 @@ requires = [
 
 # `venv` - 2
 
-- **tl;dr**: for this topic, it isolates Python binaries & `pip` installs to a folder structure
+- **tl;dr**: It isolates Python binaries & `pip` installs to a folder structure
 - You can create a new venv and install different package versions from PyPI
   - `python3 -m venv my_new_environment`
 - When activating a venv, the environment's Python binary is at the top of your environment path
-- Think of it as the first (and maybe only) weapon you need to fight version incompatibility for proejcts
 
 <!-- Demo here for `which python3` before/after venv activation. Use the Python Extension Manager in VS Code to show this off, along with the command line and environment variable display. -->
 
@@ -156,7 +157,7 @@ requires = [
   - Can install non-Python libraries (C, R, Rust, Julia, etc.)
   - `conda install rust --channel conda-forge`
 - More of a replacement for `pip` and PyPI, they manage their own versions of populay PyPI packages and ensure compatibility
-- Default install is > 4 GB 👀, over 250 packages included
+- Default install is > 4 GB(!), over 250 packages included
 
 ---
 
@@ -166,7 +167,7 @@ requires = [
   - To turn it off: `conda config --set auto__activate_base false`
   - _You should do this if you have a Python install with your OS or you installed Python yourself from [python.org](https://python.org)_
 - You can create an environment from a .yml file similar to a requirements.txt file:
-https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
+[Conda Docs - Managing environments](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 ---
 
 # Anaconda Navigator
@@ -183,7 +184,7 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
 # Miniconda and Mamba
 
 - Mini-conda: The conda program without 3-4 GB of extra binaries
-- mamba: conda written in C++ 🏎️
+- mamba: conda written in C++
 - [conda-forge](https://conda-forge.org): A community-driven alternative to base conda and the Anaconda channel
 
 ---
@@ -193,12 +194,14 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
 - Anaconda came before `pip` had a lot of the features and libraries it does now
   - 1.0 release was in 2012, comparable latest Python release was 3.2
 - `pip` has matured greatly since the release of conda
-- If you develop Python libraries (not just data science/scientific computing), you may need to use a different package management workflow
 
 ---
 
-# Where does Jupyter fit into this?
-- It has a **LOT** of dependencies
+# Jupyter and cloud-based options
+
+---
+
+# Jupyter
 - Two separate products:
   1. Jupyter Notebook (older style, most common)
   2. JupyterLab
@@ -207,7 +210,7 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
 
 ---
 
-# Jupyter Cloud Offerings
+# Jupyter in the Cloud
 - Anaconda.cloud
 - Google Colab
   - Sign in with a GMail account
@@ -217,7 +220,7 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environme
 - _Azure Machine Learning Workspace_
   - These two have more pre-reqs to get started
 
-<!-- Demo Google Colab -->
+<!-- Demo Google Colab. Logout of GMail first. -->
 
 ---
 
@@ -244,6 +247,10 @@ Pre-stamped code to work with your Cloud Data™ locally:
 
 ---
 
+# Local pip-based Tools
+
+---
+
 # More pip-based Tools
 - Creator of `pipx`, Chad Smith, has a table with all of these projects and their strengths, weakenesses, and usecases
   - [The Big List of Python Packaging and Distribution Tools](https://chadsmith.dev/python-packaging/)
@@ -251,10 +258,8 @@ Pre-stamped code to work with your Cloud Data™ locally:
 - If yes, go through that list, find what meets your needs
 
 <!-- Likely split this into its own topic later, removing from main slides now -->
-<!-- # pipenv
-
-- pipenv = pip + virtualenv + pyenv
-  - [YouTube - Isaac Harris-Holt - Don't use Pip for Big Projects](https://youtu.be/jVcN49sHbBQ?si=HDH11U2GLV-LSxwt) -->
+<!-- # pipenv: pipenv = pip + virtualenv + pyenv
+    [YouTube - Isaac Harris-Holt - Don't use Pip for Big Projects](https://youtu.be/jVcN49sHbBQ?si=HDH11U2GLV-LSxwt) -->
 
 ---
 
@@ -302,6 +307,7 @@ Pre-stamped code to work with your Cloud Data™ locally:
 These belong at the beginning of the slide deck, but I wanted these to be a lasting impression:
 - [pipdeptree](https://pypi.org/project/pipdeptree/)
 - [Visual Studio Marketplace - Python Environment Manager](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python-environment-manager) - again
+- [ReviewNB](https://github.com/reviewNB)
 
 ---
 
