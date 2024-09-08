@@ -12,3 +12,5 @@
 
 Assets/*
 ~*.pptx
+
+.DS_Store
